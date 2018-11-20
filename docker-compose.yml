@@ -1,15 +1,15 @@
 version: "3"
 services:
   blog_it:
-    image: postgres
+    image: mysql/mysql-server:5.7
     ports:
-      - 5432:5432
+      - 3306:3306
     environment:
-      POSTGRES_USER: cuong
-      POSTGRES_PASSWORD: cuong
-      POSTGRES_DB: blog_it
+      MYSQL_USER: cuong
+      MYSQL_PASSWORD: cuong
+      MYSQL_DATABASE: blog_it
     volumes:
-    - .:/db
+      - .:/db
   web:
     links:
       - blog_it
@@ -19,4 +19,3 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-
