@@ -1,21 +1,22 @@
 version: "3"
 services:
+  blog_it:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: cuong
+      POSTGRES_PASSWORD: cuong
+      POSTGRES_DB: blog_it
+    volumes:
+    - .:/db
   web:
-    container_name: djang-blog-it
-    restart: always
+    links:
+      - blog_it
     image: django
     ports:
-      - "8000:8000"
+      - 8080:8000
     build:
       context: .
       dockerfile: Dockerfile
-#    links:
-#      - db
-#  db:
-#    container_name: "blog_it_db"
-#    image: mysql
-#    ports:
-#      - "3306:3306"
-#    environment:
-#      - MYSQL_ROOT_PASSWORD='root'
-#      - MYSQL_ROOT_HOST=%.%.%.%
+
